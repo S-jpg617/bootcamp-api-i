@@ -1,0 +1,53 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgb(158, 168, 70);
+}
+
+.message {
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: rgb(245, 40, 8);
+}
+
+.input>label {
+    display: inline-block;
+    width: 15em;
+    padding: 0.5em;
+    font-weight: bold;
+
+}
+
+.input>input[type="text"] {
+    padding: 0.5em;
+    margin: 0.5em;
+
+}
+
+.widgets {
+    display: flex;
+}
+
+.widget {
+    flex: 1;
+    border: 1px solid;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+h1 {
+    text-align: center;
+}
+
+.phoneBill {
+    flex: 1;
+    border: 1px solid rgb(87, 92, 17);
+    margin: 1em;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+@media (min-width: 768px) {
+    .bills {
+    display: flex;
+}
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body>
+    <h1>Bootcamp API</h1>
+    <div x-data="{
+        sentence: '',
+        longestWord: '',
+        shortestWord: '',
+        wordLengths: 0,
+        checkSentence() {
+            axios
+                .get(`/api/word_game?sentence=${this.sentence}`)
+                .then((result) => {
+                    this.longestWord = result.data.longestWord;
+                    this.shortestWord = result.data.shortestWord;
+                    this.wordLengths = result.data.sum;
+        });
+            
+    },
+        bills: '',
+        totalPhoneBill: 'R'+ 0,
+        calculateBill() { 
+            axios
+                .get(`/api/phonebill/total?bills=${this.bills}`)
+                .then((result) => {
+                    this.totalPhoneBill = result.data.totalPhoneBill;
+        });
+    },
+        bills: '',
+        calls: 'R'+ 0,
+        sms: 'R'+ 0,
+        calculatePrices() { 
+            axios
+                .get(`/api/phonebill/prices?bills=${this.bills}`)
+                .then((result) => {
+                    this.calls = result.data.calls;
+                    this.sms = result.data.sms;
+        });
+    },
+    bills: '',
+    type: '',
+    price: 'R'+ 0,
+    checkPrice() { 
+        axios
+            .post(`/api/phonebill/price`, {
+                type : 'sms',
+                price : 2.85
+              })
+            .then((result) => {
+                this.type = result.data.type;
+                this.price = result.data.price;
+    });
+},
+        usage: '',
+        amount: '0.00',
+        airtimeMessage: 'R'+ 0,       
+        calculate() { 
+            axios
+                .get(`api/enough?usage=${this.usage}&amount=${this.amount}`)
+                .then((result) => {
+                    this.airtimeMessage = result.data.airtimeMessage;
+        });
+    },
+    
+            
+    }">
+
+        <div class="widget">
+            <h2>Word Game</h2>
+            <div>
+                <label for="sentence">Please enter the sentence:</label>
+                <div>
+                    <textarea x-model="sentence" name="" id="" cols="30" rows="5"></textarea>
+                </div>
+            </div>
+            <div>
+                <button x-on:click="checkSentence">Check</button>
+            </div>
+
+            <div>
+                <div class="message">
+                    Longest Word: <span x-text="longestWord"></span>
+                </div>
+
+                <div class="message">
+                    Shortest Word: <span x-text="shortestWord"></span>
+                </div>
+
+                <div class="message">
+                    Word Length: <span x-text="wordLengths"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <h2>Phone bill</h2>
+            <div class="bills">
+                <div class="phoneBill">
+                    <h3>Total Phone bill</h3>
+                    
+                    <div>
+                        <div class="input">
+                            <label for="">Please enter your phone usage:</label>
+                            <input type="text" x-model="bills" id="">
+                        </div>
+                        <div>
+                            <button x-on:click="calculateBill">Calculate</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="message">
+                            Total Phone Bill: <span x-text="totalPhoneBill"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="phoneBill">
+                    <h3>Total Prices</h3>
+                    
+                    <div>
+                        <div class="input">
+                            <label for="">Please enter your phone usage:</label>
+                            <input type="text" x-model="bills" id="">
+                        </div>
+                        <div>
+                            <button x-on:click="calculatePrices">Calculate</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="message">
+                            Call: <span x-text="calls"></span>
+                        </div>
+                        <div class="message">
+                            Sms: <span x-text="sms"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <h2>Enough Airtime</h2>
+          
+            <div class="input">
+                <label for="usage">Please enter your airtime usage:</label>
+                <input type="text" x-model="usage" id="usage">
+            </div>
+
+            <div class="input">
+                <label for="amount">Amount available:</label>
+                <input type="text" x-model="amount" id="amount">
+            </div>
+
+            <span>Results:</span>
+            <div class="message" x-text="airtimeMessage">
+
+            </div>
+
+            <div>
+                <button x-on:click="calculate">Calculate airtime usage</button>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
