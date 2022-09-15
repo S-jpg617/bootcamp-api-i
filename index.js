@@ -15,6 +15,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 
+app.get(`/api/get/api_status`, (req, res)=>{
+    res.json({
+        status: 'bootcamp-api-i running'
+    })
+})
+
 app.get('/api/word_game', function(req, res){
 
     const sentence = req.query.sentence;
